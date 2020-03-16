@@ -17,9 +17,8 @@
 			<new-todo-item></new-todo-item>
 		
 			<todo-item  v-for="item in groceryList"
-						:pic="item.text"
-						:active="item.status"	
-						:key="item.id"					
+						v-bind:pic="item.text"
+						v-bind:active="item.status"										
 			></todo-item>	
 		</div>
 	</div>
@@ -27,12 +26,12 @@
 	
 
 	<script src="/js/app.js"></script>
-	<script>
+	<script>	
 	Vue.component('todo-item',{
-		props:['pic', 'active','key'],
+		props:['pic', 'active'],
 		data(){
 			return{
-				
+			
 			}
 		},
 		methods:{		
@@ -41,19 +40,16 @@
 			}			
 		},
 		watch:{
-			active:function(){
-				console.log(this.active)
-			}
+			
 		},
 		template:`<div class="mt-2">
-					<p :class="{ lol: active }" > @{{ pic }} </p>
+					<p :class="{ lol: active }" > @{{ pic }} </p>				
 					<input  type="checkbox" v-model="active"/>
 					<button v-on:click="delet()" class="btn btn-danger">Удалить</button>
-				</div>`
+				 </div>`
 	});
 
 	Vue.component('new-todo-item',{
-
 		data(){
 			return{
 				deal:null,
@@ -62,9 +58,7 @@
 		methods:{
 			createDeal(){
 				axios.post('/create', {body:this.deal}).then(({data})=>{
-					console.log(data);
-
-					
+					console.log(data);			
 				});
 			}
 		},
@@ -75,20 +69,22 @@
 				</div>`
 	});
 
-var app = new Vue({
-		el:"#app",		
+
+
+	var app = new Vue({
+		el:"#app",	
+
 		data() {
 			return{		
-				groceryList: {!! json_encode($deals) !!},
-				
+				groceryList: {!! json_encode($deals) !!},					
 			}		
 		},
 		methods:{
 			
 		},
-
 		mounted(){
-			
+			this.groceryList =  {!! json_encode($deals) !!}
+			console.log(this.groceryList)
 		}
 	});
 	</script>
