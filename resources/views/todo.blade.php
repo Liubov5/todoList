@@ -15,7 +15,7 @@
 <body>
 	<div class="container">
 		<div id="app">
-			@{{ test }}
+			
 			<new-todo-item></new-todo-item>
 		
 			<todo-item  v-for="item in groceryList"
@@ -78,7 +78,6 @@
 
 		data: {		
 			groceryList: {!! json_encode($deals) !!},					
-			test: "s",
 		},
 		methods:{
 			
