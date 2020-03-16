@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="/js/app.js"></script>
 	<style>
 		.lol{
 			text-decoration: line-through;
@@ -14,6 +15,7 @@
 <body>
 	<div class="container">
 		<div id="app">
+			@{{ test }}
 			<new-todo-item></new-todo-item>
 		
 			<todo-item  v-for="item in groceryList"
@@ -25,7 +27,7 @@
 	
 	
 
-	<script src="/js/app.js"></script>
+	
 	<script>	
 	Vue.component('todo-item',{
 		props:['pic', 'active'],
@@ -74,16 +76,15 @@
 	var app = new Vue({
 		el:"#app",	
 
-		data() {
-			return{		
-				groceryList: {!! json_encode($deals) !!},					
-			}		
+		data: {		
+			groceryList: {!! json_encode($deals) !!},					
+			test: "s",
 		},
 		methods:{
 			
 		},
 		mounted(){
-			this.groceryList =  {!! json_encode($deals) !!}
+			//this.groceryList =  {!! json_encode($deals) !!}
 			console.log(this.groceryList)
 		}
 	});
