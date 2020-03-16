@@ -20,7 +20,8 @@
 		
 			<todo-item  v-for="item in groceryList"
 						v-bind:pic="item.text"
-						v-bind:active="item.status"										
+						v-bind:active="item.status"	
+						v-bind:idd="item.id"									
 			></todo-item>	
 		</div>
 	</div>
@@ -30,24 +31,28 @@
 	
 	<script>	
 	Vue.component('todo-item',{
-		props:['pic', 'active'],
+		props:['pic', 'active','idd'],
 		data(){
 			return{
 			
 			}
 		},
 		methods:{		
-			delet:function(){
-				 alert()
+			delet:function(arg){
+				
+				axios.post('/deleteItem', {body:arg.idd}).then(({data})=>{
+					 this.$forceUpdate();			
+				});
 			}			
 		},
 		watch:{
 			
 		},
 		template:`<div class="mt-2">
-					<p :class="{ lol: active }" > @{{ pic }} </p>				
+					<p :class="{ lol: active }" > @{{ pic }} </p>
+							
 					<input  type="checkbox" v-model="active"/>
-					<button v-on:click="delet()" class="btn btn-danger">Удалить</button>
+					<button v-on:click="delet({ idd })" class="btn btn-danger">Удалить</button>
 				 </div>`
 	});
 

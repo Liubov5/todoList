@@ -32,6 +32,13 @@ class TodoController extends Controller
         return $id;
     }
 
+    public function delete(Request $request){
+        
+    
+        $todo = Todo::find($request->body);
+        $todo->delete();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
