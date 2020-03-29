@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/newtodo', 'TodoController@index');
 
 Route::get('/todo', 'TodoController@index');
 Route::post('/create', 'TodoController@create');
 Route::post('/deleteItem', 'TodoController@delete');
+Route::post('/updateStatus', 'TodoController@update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -21,7 +21,7 @@
 			<todo-item  v-for="item in groceryList"
 						v-bind:pic="item.text"
 						v-bind:active="item.status"	
-						v-bind:idd="item.id"									
+						v-bind:key="item.id"									
 			></todo-item>	
 		</div>
 	</div>
@@ -31,7 +31,7 @@
 	
 	<script>	
 	Vue.component('todo-item',{
-		props:['pic', 'active','idd'],
+		props:['pic', 'active','key'],
 		data(){
 			return{
 			
@@ -40,7 +40,7 @@
 		methods:{		
 			delet:function(arg){
 				
-				axios.post('/deleteItem', {body:arg.idd}).then(({data})=>{
+				axios.post('/deleteItem', {body:arg.key}).then(({data})=>{
 					 this.$forceUpdate();			
 				});
 			}			
@@ -65,7 +65,7 @@
 		methods:{
 			createDeal(){
 				axios.post('/create', {body:this.deal}).then(({data})=>{
-					console.log(data);			
+						
 				});
 			}
 		},
@@ -88,8 +88,8 @@
 			
 		},
 		mounted(){
-			//this.groceryList =  {!! json_encode($deals) !!}
-			console.log(this.groceryList)
+			this.groceryList =  {!! json_encode($deals) !!}
+			//console.log(this.groceryList)
 		}
 	});
 	</script>

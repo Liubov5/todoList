@@ -15,7 +15,7 @@ class TodoController extends Controller
     public function index()
     {
         $deals = Todo::all();
-        return view('todo',['deals'=>$deals]);
+        return view('newtodo',['deals'=>$deals]);
     }
 
     /**
@@ -29,7 +29,8 @@ class TodoController extends Controller
             'text'=>$request->body,
             'status'=>false,
         ]);
-        return $id;
+        $deals = Todo::all();
+        return $deals;
     }
 
     public function delete(Request $request){
@@ -37,6 +38,9 @@ class TodoController extends Controller
     
         $todo = Todo::find($request->body);
         $todo->delete();
+
+        $deals = Todo::all();
+        return $deals;
     }
 
     /**
@@ -81,7 +85,11 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo = Todo::find($request->body);
+        $todo->status = 1;
+        $todo->save();
+        $deals = Todo::all();
+        return $deals;
     }
 
     /**
