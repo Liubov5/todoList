@@ -8,6 +8,17 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.Vuetify = require('vuetify');
+Vue.use(Vuetify);
+
+
+
+window.SingleDatePicker = require('vue-single-date-picker');
+
+
+
+
+//Vue.component('SingleDatePicker', require('vue-single-date-picker').default);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

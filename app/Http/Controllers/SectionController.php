@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Todo;
+use App\Section;
 use Illuminate\Http\Request;
 
-class TodoController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $deals = Todo::all();
-        return view('newtodo',['deals'=>$deals]);
+        //
     }
 
     /**
@@ -23,29 +22,9 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $time = date('Y-m-d', strtotime($request->body["date"]));
-
-        $id = Todo::create([
-            'text'=> $request->body["deal"],
-            'date'=> $time,
-            'status'=> false,
-        ]);
-        $deals = Todo::all();
-        return $deals;
-
-        //return $time;
-    }
-
-    public function delete(Request $request){
-        
-    
-        $todo = Todo::find($request->body);
-        $todo->delete();
-
-        $deals = Todo::all();
-        return $deals;
+        //
     }
 
     /**
@@ -62,10 +41,10 @@ class TodoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Todo  $todo
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Todo $todo)
+    public function show(Section $section)
     {
         //
     }
@@ -73,10 +52,10 @@ class TodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Todo  $todo
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit(Todo $todo)
+    public function edit(Section $section)
     {
         //
     }
@@ -85,26 +64,21 @@ class TodoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, Section $section)
     {
-        //сделать uncheck
-        $todo = Todo::find($request->body);
-        $todo->status = 1;
-        $todo->save();
-        $deals = Todo::all();
-        return $deals;
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Todo  $todo
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todo $todo)
+    public function destroy(Section $section)
     {
         //
     }
