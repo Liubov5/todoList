@@ -19,14 +19,47 @@
 		}
 	</style>
 </head>
-<body>
+<body >
 	
 	
-		<div id="app">	
-				<v-app>
+		<div id="app" >	
+				<v-app >
 					<v-container>
 						<v-row>
-							<v-col md="3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ducimus placeat molestiae, animi dolorum. Quibusdam rem, ullam esse perferendis, doloremque amet veritatis nostrum. Esse reiciendis, dignissimos mollitia maiores eligendi accusamus?</v-col>
+							
+								<v-col md="3">
+
+									<v-hover v-slot:default="{ hover }"  close-delay="200">
+										<v-card :elevation="hover ? 16 : 2"> 
+											
+											<v-col>
+												@{{ nextDays(1) }}
+											</v-col>
+
+										</v-card>
+									</v-hover>
+
+									<v-hover v-slot:default="{ hover }"  close-delay="200">
+										<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
+											
+											<v-col >
+												@{{ nextDays(2) }}
+											</v-col>
+
+										</v-card>
+									</v-hover>
+
+									<v-hover v-slot:default="{ hover }"  close-delay="200">
+										<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
+											
+											<v-col>
+												@{{ nextDays(3) }}
+											</v-col>
+
+										</v-card>
+									</v-hover>
+								</v-col> 
+							
 							<v-col md="9">
 								<v-row v-if="show">
 									<v-col md="6">
@@ -73,28 +106,41 @@
 								        two-line
 								        flat
 								>
-									<v-subheader>Твои дела</v-subheader>
+									<v-subheader class="font-weight-bold title teal--text text--lighten-3">Твои дела на @{{today_ru}}</v-subheader>
 
 									<v-list-item-group>
 											
-										<v-list-item v-for="item in groceryList">
-								            <template v-slot:default="{ active, toggle }">
-									              <v-list-item-action>
-									                <v-checkbox
-									                  v-model="active"
-									                  color="primary"
-									                  @click="deleteItem(item.id)"
-									                ></v-checkbox>
-									              </v-list-item-action>
-								  
-									              <v-list-item-content>
-									                <v-list-item-title>@{{item.text}}</v-list-item-title>
-									                <v-list-item-subtitle>@{{item.date}}</v-list-item-subtitle>
-									              </v-list-item-content>
-								            </template>
-										</v-list-item>
+										
+										<v-list-item color="teal darken-4" v-for="item in groceryList" v-if="item.date==new Date().toISOString().substr(0,10)">
+										
+											
+									            <template v-slot:default="{ active, toggle }" >
+													
 
+												        <v-list-item-action>
+												                <v-checkbox
+												                  v-model="active"
+												                  color="primary"
+												                  @click="deleteItem(item.id)"
+												                ></v-checkbox>
+												        </v-list-item-action>
+
+															
+									  				
+										              <v-list-item-content>
+										                <v-list-item-title>@{{item.text}}</v-list-item-title>
+										                <v-list-item-subtitle>@{{item.date}}</v-list-item-subtitle>
+										              </v-list-item-content>
+										          	
+										        	
+
+									            </template>
+								        	
+								        
+										</v-list-item>
+									
 									</v-list-item-group>
+
 								</v-list>
 
 								<!--list todos-->
@@ -113,10 +159,7 @@
 
 
 							</v-col>
-						</v-row>
-				
-				
-					
+						</v-row>				
 				</v-app>			
 			</v-container>	
 		</div>
@@ -124,7 +167,15 @@
 		
 	<script>	
 
-	
+	var options = {
+ 
+		  year: 'numeric',
+		  month: 'long',
+		  day: 'numeric',
+		  weekday: 'long',
+		  timezone: 'UTC',
+
+	};
 
 	var app = new Vue({
 		el:"#app",
@@ -137,8 +188,10 @@
 				deal:null,	
 				picker: new Date().toISOString().substr(0,10),
 				menu:false,
-			}		
-							
+				today_ru:new Date().toLocaleString("ru", options),
+				day:0,
+				
+			}									
 		},
 		methods:{
 			
@@ -150,11 +203,24 @@
 					this.groceryList = data;		
 				});
 			},
-			
-    		enter: function (el, done) {
-		      Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
-		      Velocity(el, { fontSize: '1em' }, { complete: done })
-		    },
+			nextDays(arg){
+				let day = new Date().getDate()+arg;
+				let month = new Date().getMonth();
+				let year = new Date().getFullYear();
+					
+				var options = { 
+					  month: 'long',
+					  day: 'numeric',
+					  weekday: 'long',
+					 
+				};
+				let newDate = new Date(year, month, day);
+				
+
+				return newDate.toLocaleString("ru", options);
+				
+			},
+    		
 
 		    newItem: function(){
 		    	this.show = !this.show;
@@ -174,8 +240,14 @@
 		    }
 
 		},
-		mounted(){
+		computed:{
 			
+		},
+		created(){
+			this.groceryList.sort(function(a,b){
+				var dateA = new Date(a.date), dateB = new Date(b.date);
+				return dateA-dateB;
+			})
 		},
 		watch:{
 			status:function(arg){
