@@ -19,22 +19,32 @@
 		}
 	</style>
 </head>
-<body >
-	
-	
+<body >	
 		<div id="app" >	
 				<v-app >
 					<v-container>
 						<v-row>
 							
 								<v-col md="3">
+									<p>Ближайшие планы</p>
 
 									<v-hover v-slot:default="{ hover }"  close-delay="200">
-										<v-card :elevation="hover ? 16 : 2"> 
-											
-											<v-col>
-												@{{ nextDays(1) }}
-											</v-col>
+										<v-card :elevation="hover ? 16 : 2"> 									
+											<v-menu transition="slide-x-transition" bottom right>
+												<template v-slot:activator="{ on }" >
+													<v-col dark v-on="on">
+														@{{ nextDays(1,"ru") }}
+													</v-col>
+												</template>
+												<v-list>
+													<v-list-item
+											            v-for="item in groceryList"
+											           	v-if="item.date == nextDays(2, 'isos')"									            
+											          >
+											            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
+											         </v-list-item>
+												</v-list>
+											</v-menu>
 
 										</v-card>
 									</v-hover>
@@ -42,9 +52,23 @@
 									<v-hover v-slot:default="{ hover }"  close-delay="200">
 										<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
 											
-											<v-col >
-												@{{ nextDays(2) }}
-											</v-col>
+											
+											<v-menu transition="slide-x-transition" bottom right>
+												<template v-slot:activator="{ on }" >
+													<v-col dark v-on="on">
+														@{{ nextDays(2,"ru") }}
+													</v-col>
+												</template>
+												<v-list>
+													<v-list-item
+											            v-for="item in groceryList"
+											            v-if="item.date == nextDays( 3, 'isos') "
+											           
+											          >
+											            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
+											         </v-list-item>
+												</v-list>
+											</v-menu>
 
 										</v-card>
 									</v-hover>
@@ -52,12 +76,36 @@
 									<v-hover v-slot:default="{ hover }"  close-delay="200">
 										<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
 											
-											<v-col>
-												@{{ nextDays(3) }}
-											</v-col>
-
+											
+											<v-menu transition="slide-x-transition" bottom right>
+												<template v-slot:activator="{ on }" >
+													<v-col dark v-on="on">
+														@{{ nextDays(3,"ru") }}
+													</v-col>
+												</template>
+												<v-list>
+													<v-list-item
+											            v-for="item in groceryList"
+											            v-if="item.date == nextDays(4, 'isos') "
+											           
+											          >
+											            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
+											         </v-list-item>
+												</v-list>
+											</v-menu>
 										</v-card>
 									</v-hover>
+									<div class="mt-5">
+										<p>Невыполненные дела</p>
+										<div v-for="item in groceryList">
+											<v-alert type="warning" v-if="old_deals(item)"> 											
+										            <v-list-item-title>@{{item.text}}</v-list-item-title>
+										            <v-list-item-subtitle>@{{item.date}}</v-list-item-subtitle>
+										       
+											</v-alert>
+										</div>
+									</div>		
+									
 								</v-col> 
 							
 							<v-col md="9">
@@ -111,25 +159,27 @@
 									<v-list-item-group>
 											
 										
-										<v-list-item color="teal darken-4" v-for="item in groceryList" v-if="item.date==new Date().toISOString().substr(0,10)">
+										<v-list-item color="teal darken-4" v-for="item in groceryList" v-if="item.date == new Date().toISOString().substr(0,10)">
 										
 											
-									            <template v-slot:default="{ active, toggle }" >
+									            <template v-slot:default="{ active, toggle }" class="teal darken-4">
 													
 
 												        <v-list-item-action>
 												                <v-checkbox
-												                  v-model="active"
+												                 
+												                  :value="item.id"
 												                  color="primary"
-												                  @click="deleteItem(item.id)"
+													                 v-model="id"
+													                 v-if="!item.status"
 												                ></v-checkbox>
 												        </v-list-item-action>
 
 															
 									  				
 										              <v-list-item-content>
-										                <v-list-item-title>@{{item.text}}</v-list-item-title>
-										                <v-list-item-subtitle>@{{item.date}}</v-list-item-subtitle>
+										                <v-list-item-title v-bind:class="{ lol: item.status}">@{{item.text}}</v-list-item-title>
+										                <v-list-item-subtitle></v-list-item-subtitle>
 										              </v-list-item-content>
 										          	
 										        	
@@ -140,6 +190,9 @@
 										</v-list-item>
 									
 									</v-list-item-group>
+									
+									
+									
 
 								</v-list>
 
@@ -183,13 +236,14 @@
 		data() {
 			return{
 				groceryList: {!! json_encode($deals) !!},	
-				status: [],
 				show:false,
 				deal:null,	
 				picker: new Date().toISOString().substr(0,10),
 				menu:false,
 				today_ru:new Date().toLocaleString("ru", options),
 				day:0,
+				id:0,
+				today_isos:new Date().toISOString().substr(0,10),
 				
 			}									
 		},
@@ -203,8 +257,8 @@
 					this.groceryList = data;		
 				});
 			},
-			nextDays(arg){
-				let day = new Date().getDate()+arg;
+			nextDays(arg, arg2){
+				let dayy = new Date().getDate() + arg;
 				let month = new Date().getMonth();
 				let year = new Date().getFullYear();
 					
@@ -214,11 +268,19 @@
 					  weekday: 'long',
 					 
 				};
-				let newDate = new Date(year, month, day);
-				
+				let newDate = new Date(year, month, dayy);
 
-				return newDate.toLocaleString("ru", options);
-				
+				if(arg2 == "ru"){
+
+					return newDate.toLocaleString("ru", options);
+
+				}
+
+				if(arg2 == "isos"){
+					return  newDate.toISOString().substr(0,10);
+						
+					
+				}			
 			},
     		
 
@@ -237,11 +299,16 @@
 						
 					});
 		    	}
-		    }
-
+		    },
+		   
+			old_deals(arg){
+				if(!arg.status && arg.date < this.today_isos){
+					return true;
+				}
+			}
 		},
 		computed:{
-			
+
 		},
 		created(){
 			this.groceryList.sort(function(a,b){
@@ -250,12 +317,14 @@
 			})
 		},
 		watch:{
-			status:function(arg){
-				axios.post('/updateStatus', { body:arg[0] }).then(({data})=>{
+			id:function(arg){
+				axios.post('/updateStatus', { body:arg }).then(({data})=>{
 					this.groceryList = data;	
 					
 					console.log()			
 				});
+
+				console.log(arg)
 			},
 			check:function(arg){
 				console.log(arg)

@@ -32,6 +32,7 @@ class TodoController extends Controller
             'date'=> $time,
             'status'=> false,
         ]);
+        
         $deals = Todo::all();
         return $deals;
 
