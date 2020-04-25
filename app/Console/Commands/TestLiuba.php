@@ -37,6 +37,6 @@ class TestLiuba extends Command
      */
     public function handle()
     {
-         $this->info('Display this on the screen');
+         $this->info('Просто проверка Люба');
     }
 }
