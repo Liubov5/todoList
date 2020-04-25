@@ -1,5 +1,6 @@
 <?php
 
+use DB;
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -37,6 +38,6 @@ class TestLiuba extends Command
      */
     public function handle()
     {
-         dd('Просто проверка Люба');
+         DB::table('todos')->where("status", 0)->delete();
     }
 }
