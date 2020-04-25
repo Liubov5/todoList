@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\TestLiuba::class
+       Commands\TestLiuba::class
     ];
 
     /**
@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command('test')->everyMinute();
+        $schedule->command('test:cron')->everyMinute();
     }
 
     /**

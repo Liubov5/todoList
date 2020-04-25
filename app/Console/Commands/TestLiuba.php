@@ -11,7 +11,7 @@ class TestLiuba extends Command
      *
      * @var string
      */
-    protected $signature = 'test';
+    protected $signature = 'test:cron';
 
     /**
      * The console command description.
@@ -37,6 +37,6 @@ class TestLiuba extends Command
      */
     public function handle()
     {
-         $this->info('Просто проверка Люба');
+         dd('Просто проверка Люба');
     }
 }
