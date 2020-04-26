@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
+
 namespace App\Console\Commands;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
 
 class TestLiuba extends Command
