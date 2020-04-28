@@ -268,6 +268,7 @@
 					  weekday: 'long',
 					 
 				};
+				
 				let newDate = new Date(year, month, dayy);
 
 				if(arg2 == "ru"){
