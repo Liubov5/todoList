@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class TestLiuba extends Command
 {
@@ -39,6 +41,15 @@ class TestLiuba extends Command
      */
     public function handle()
     {
-         DB::table('todos')->where("status", 0)->delete();
+        // DB::table('todos')->where("status", 0)->delete();
+         //dd(Carbon::today()->format('l'));
+
+         if(Carbon::now()->setTimezone('GMT+9')->format('H:i' ) == "21:00" ) {
+
+          $deals = DB::table('todos')->where("status", 0)->where('date', Carbon::today()->format('Y-m-d'))->get();
+
+                Mail::to('liubov.iakovleva5@gmail.com')->send(new \App\Mail\everyDayNotification($deals));
+         }
+
     }
 }
