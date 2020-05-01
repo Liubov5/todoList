@@ -44,7 +44,7 @@ class TestLiuba extends Command
         // DB::table('todos')->where("status", 0)->delete();
          //dd(Carbon::today()->format('l'));
 
-         if(Carbon::now()->setTimezone('GMT+9')->format('H:i' ) == "21:15" ) {
+         if(Carbon::now()->setTimezone('GMT+9')->format('H:i' ) == "19:45" ) {
 
           $deals = DB::table('todos')->where("status", 0)->where('date', Carbon::today()->format('Y-m-d'))->get();
 
