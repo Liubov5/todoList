@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -14,7 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $deals = Todo::all();
+        $deals = Todo::all()->where('user_id', Auth::user()->id);
         return view('newtodo',['deals'=>$deals]);
     }
 
@@ -31,12 +32,13 @@ class TodoController extends Controller
             'text'=> $request->body["deal"],
             'date'=> $time,
             'status'=> false,
+            'user_id'=>$request->body["user_id"],
         ]);
         
-        $deals = Todo::all();
+       $deals = Todo::all()->where('user_id', Auth::user()->id);
         return $deals;
 
-        //return $time;
+        //return $request;
     }
 
     public function delete(Request $request){
@@ -45,7 +47,7 @@ class TodoController extends Controller
         $todo = Todo::find($request->body);
         $todo->delete();
 
-        $deals = Todo::all();
+       $deals = Todo::all()->where('user_id', Auth::user()->id);
         return $deals;
     }
 
@@ -95,7 +97,7 @@ class TodoController extends Controller
         $todo = Todo::find($request->body);
         $todo->status = 1;
         $todo->save();
-        $deals = Todo::all();
+        $deals = Todo::all()->where('user_id', Auth::user()->id);
         return $deals;
     }
 

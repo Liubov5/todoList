@@ -20,9 +20,41 @@
 	</style>
 </head>
 <body >	
+	
+
+	@guest
+		   <p>нет доступа</p>
+	@endguest
+	
+	@auth
 		<div id="app" >	
 				<v-app >
 					<v-container>
+						 <v-row>
+						 	<v-col md="9"></v-col>	
+						 	<v-col md="3">
+						 		<ul class="navbar-nav ">
+		                            <li class="nav-item dropdown">
+		                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+		                                   Привет,  {{ Auth::user()->name }} <span class="caret"></span>
+		                                </a>
+
+		                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+		                                    <a class="dropdown-item" href="{{ route('logout') }}"
+		                                       onclick="event.preventDefault();
+		                                                     document.getElementById('logout-form').submit();">
+		                                        {{ __('Logout') }}
+		                                    </a>
+
+		                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+		                                        @csrf
+		                                    </form>
+		                                </div>
+		                            </li>
+                        		</ul>
+						 	</v-col>		
+						 </v-row>
+						
 						<v-row>
 							
 								<v-col md="3">
@@ -216,9 +248,10 @@
 				</v-app>			
 			</v-container>	
 		</div>
-	
+	@endauth
 		
 	<script>	
+
 
 	var options = {
  
@@ -291,12 +324,15 @@
 		    		
 		    		let item = {
 		    			date:this.picker,
-		    			deal:this.deal
+		    			deal:this.deal,
+		    			user_id: {!! Auth::user()->id  !!},
 		    		}
 		    		axios.post('/create', {body:item}).then(({data})=>{
 						this.groceryList = data;
 						this.deal="";
-						this.date=""
+						this.date="";
+						console.log(data)
+
 						
 					});
 		    	}
