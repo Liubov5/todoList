@@ -11,6 +11,7 @@ window.Vue = require('vue');
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify);
 
+import { mdiAccountAlert } from '@mdi/js';
 
 
 window.SingleDatePicker = require('vue-single-date-picker');

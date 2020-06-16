@@ -56,7 +56,7 @@
 						 </v-row>
 						
 						<v-row>
-							
+							<!--левая колонка-->
 								<v-col md="3">
 									<p>Ближайшие планы</p>
 
@@ -130,16 +130,25 @@
 									<div class="mt-5">
 										<p>Невыполненные дела</p>
 										<div v-for="item in groceryList">
-											<v-alert type="warning" v-if="old_deals(item)"> 											
-										            <v-list-item-title>@{{item.text}}</v-list-item-title>
-										            <v-list-item-subtitle>@{{item.date}}</v-list-item-subtitle>
-										       
+											<v-alert border="left" color="orange" v-if="old_deals(item)"> 											
+										         <v-row>
+										         	<v-col md="6">
+										         		<div>@{{item.text}}</div>
+										        		<div>@{{item.date}}</div>
+										         	</v-col>
+										         	<v-col md="3"></v-col>
+										         	<v-col md="2">
+										         		<v-icon @click="deleteItem(item.id)">fas fa-trash</v-icon>
+														
+										         	</v-col>
+										         	
+										         </v-row>											        						      		
 											</v-alert>
 										</div>
 									</div>		
 									
 								</v-col> 
-							
+							<!--правая колонка-->
 							<v-col md="9">
 								<v-row v-if="show">
 									<v-col md="6">
@@ -251,7 +260,7 @@
 	@endauth
 		
 	<script>	
-
+	
 
 	var options = {
  
@@ -265,7 +274,11 @@
 
 	var app = new Vue({
 		el:"#app",
-		vuetify:new Vuetify(),		
+		vuetify:new Vuetify({
+			icons: {
+		    	iconfont: 'mdi',
+		  },
+		}),		
 		data() {
 			return{
 				groceryList: {!! json_encode($deals) !!},	
@@ -277,14 +290,11 @@
 				day:0,
 				id:0,
 				today_isos:new Date().toISOString().substr(0,10),
-				
 			}									
 		},
 		methods:{
 			
-			lol:function(arg){
-				alert(arg);
-			},
+			
 			deleteItem:function(arg){
 				axios.post('/deleteItem', {body:arg}).then(({data})=>{
 					this.groceryList = data;		
