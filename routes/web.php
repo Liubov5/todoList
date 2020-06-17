@@ -30,3 +30,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/challenges', 'ChallengeController@index');
 Route::get('/showChallenge/{id}', 'ChallengeController@show');
+
+Route::post('/addThought', 'ThoughtController@create');
+Route::post('/getThought', 'ThoughtController@index');

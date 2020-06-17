@@ -57,97 +57,97 @@
 						
 						<v-row>
 							<!--левая колонка-->
-								<v-col md="3">
-									<p>Ближайшие планы</p>
+							<v-col md="3">
+								<p>Ближайшие планы</p>
 
-									<v-hover v-slot:default="{ hover }"  close-delay="200">
-										<v-card :elevation="hover ? 16 : 2"> 									
-											<v-menu transition="slide-x-transition" bottom right>
-												<template v-slot:activator="{ on }" >
-													<v-col dark v-on="on">
-														@{{ nextDays(1,"ru") }}
-													</v-col>
-												</template>
-												<v-list>
-													<v-list-item
-											            v-for="item in groceryList"
-											           	v-if="item.date == nextDays(2, 'isos')"									            
-											          >
-											            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
-											         </v-list-item>
-												</v-list>
-											</v-menu>
+								<v-hover v-slot:default="{ hover }"  close-delay="200">
+									<v-card :elevation="hover ? 16 : 2"> 									
+										<v-menu transition="slide-x-transition" bottom right>
+											<template v-slot:activator="{ on }" >
+												<v-col dark v-on="on">
+													@{{ nextDays(1,"ru") }}
+												</v-col>
+											</template>
+											<v-list>
+												<v-list-item
+										            v-for="item in groceryList"
+										           	v-if="item.date == nextDays(2, 'isos')"									            
+										          >
+										            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
+										         </v-list-item>
+											</v-list>
+										</v-menu>
 
-										</v-card>
-									</v-hover>
+									</v-card>
+								</v-hover>
 
-									<v-hover v-slot:default="{ hover }"  close-delay="200">
-										<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
-											
-											
-											<v-menu transition="slide-x-transition" bottom right>
-												<template v-slot:activator="{ on }" >
-													<v-col dark v-on="on">
-														@{{ nextDays(2,"ru") }}
-													</v-col>
-												</template>
-												<v-list>
-													<v-list-item
-											            v-for="item in groceryList"
-											            v-if="item.date == nextDays( 3, 'isos') "
-											           
-											          >
-											            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
-											         </v-list-item>
-												</v-list>
-											</v-menu>
+								<v-hover v-slot:default="{ hover }"  close-delay="200">
+									<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
+										
+										
+										<v-menu transition="slide-x-transition" bottom right>
+											<template v-slot:activator="{ on }" >
+												<v-col dark v-on="on">
+													@{{ nextDays(2,"ru") }}
+												</v-col>
+											</template>
+											<v-list>
+												<v-list-item
+										            v-for="item in groceryList"
+										            v-if="item.date == nextDays( 3, 'isos') "
+										           
+										          >
+										            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
+										         </v-list-item>
+											</v-list>
+										</v-menu>
 
-										</v-card>
-									</v-hover>
+									</v-card>
+								</v-hover>
 
-									<v-hover v-slot:default="{ hover }"  close-delay="200">
-										<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
-											
-											
-											<v-menu transition="slide-x-transition" bottom right>
-												<template v-slot:activator="{ on }" >
-													<v-col dark v-on="on">
-														@{{ nextDays(3,"ru") }}
-													</v-col>
-												</template>
-												<v-list>
-													<v-list-item
-											            v-for="item in groceryList"
-											            v-if="item.date == nextDays(4, 'isos') "
-											           
-											          >
-											            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
-											         </v-list-item>
-												</v-list>
-											</v-menu>
-										</v-card>
-									</v-hover>
-									<div class="mt-5">
-										<p>Невыполненные дела</p>
-										<div v-for="item in groceryList">
-											<v-alert border="left" color="orange" v-if="old_deals(item)"> 											
-										         <v-row>
-										         	<v-col md="6">
-										         		<div>@{{item.text}}</div>
-										        		<div>@{{item.date}}</div>
-										         	</v-col>
-										         	<v-col md="3"></v-col>
-										         	<v-col md="2">
-										         		<v-icon @click="deleteItem(item.id)">fas fa-trash</v-icon>
-														
-										         	</v-col>
-										         	
-										         </v-row>											        						      		
-											</v-alert>
-										</div>
-									</div>		
-									
-								</v-col> 
+								<v-hover v-slot:default="{ hover }"  close-delay="200">
+									<v-card class="mt-4" :elevation="hover ? 16 : 2"> 
+										
+										
+										<v-menu transition="slide-x-transition" bottom right>
+											<template v-slot:activator="{ on }" >
+												<v-col dark v-on="on">
+													@{{ nextDays(3,"ru") }}
+												</v-col>
+											</template>
+											<v-list>
+												<v-list-item
+										            v-for="item in groceryList"
+										            v-if="item.date == nextDays(4, 'isos') "
+										           
+										          >
+										            	<v-list-item-title>@{{ item.text }}</v-list-item-title>
+										         </v-list-item>
+											</v-list>
+										</v-menu>
+									</v-card>
+								</v-hover>
+								<div class="mt-5">
+									<p>Невыполненные дела</p>
+									<div v-for="item in groceryList">
+										<v-alert border="left" color="orange" v-if="old_deals(item)"> 											
+									         <v-row>
+									         	<v-col md="6">
+									         		<div>@{{item.text}}</div>
+									        		<div>@{{item.date}}</div>
+									         	</v-col>
+									         	<v-col md="3"></v-col>
+									         	<v-col md="2">
+									         		<v-icon @click="deleteItem(item.id)">fas fa-trash</v-icon>
+													
+									         	</v-col>
+									         	
+									         </v-row>											        						      		
+										</v-alert>
+									</div>
+								</div>		
+								
+							</v-col> 
 							<!--правая колонка-->
 							<v-col md="9">
 								<v-row v-if="show">
@@ -157,85 +157,94 @@
 												    																		
 									</v-col>
 									<v-col md="6">
-										 <v-menu
-								          v-model="menu"
-								          :close-on-content-click="false"
-								          :nudge-right="40"
-								          transition="scale-transition"
-								          offset-y
-								          min-width="290px"
-								        >
-							          	<template v-slot:activator="{ on }">
-								            <v-text-field
-								              v-model="picker"
-								              label="Выбери дату"
-								              prepend-icon="event"
-								              readonly
-								              v-on="on"
-								            ></v-text-field>
-							          	</template>
+										<v-menu
+									          v-model="menu"
+									          :close-on-content-click="false"
+									          :nudge-right="40"
+									          transition="scale-transition"
+									          offset-y
+									          min-width="290px"
+									    >
+								          	<template v-slot:activator="{ on }">
+									            <v-text-field
+									              v-model="picker"
+									              label="Выбери дату"
+									              prepend-icon="event"
+									              readonly
+									              v-on="on"
+									            ></v-text-field>
+								          	</template>
 
-					          			<v-date-picker @input="menu = false" v-model="picker" locale="ru"  :first-day-of-week="1" color="teal darken-4"></v-date-picker>
+						          			<v-date-picker @input="menu = false" v-model="picker" locale="ru"  :first-day-of-week="1" color="teal darken-4"></v-date-picker>
 					        			</v-menu>
 									</v-col>
+
 								</v-row>
-							
-									
+								<v-btn @click="newItem" color="teal darken-3">Добавить</v-btn>
+								
+								<v-row>
+									<v-col md="7">
+										<!--вывод дел-->
+											
+											<v-list
+											        subheader
+											        two-line
+											        flat>
+												<v-subheader class="font-weight-bold title teal--text text--lighten-3">Твои дела на @{{today_ru}}</v-subheader>
+
+												<v-list-item-group>
+														
+													
+													<v-list-item color="teal darken-4" v-for="item in groceryList" v-if="item.date == new Date().toISOString().substr(0,10)">
+													
+														
+												            <template v-slot:default="{ active, toggle }" class="teal darken-4">
+																
+
+															        <v-list-item-action>
+															                <v-checkbox
+															                 
+															                  :value="item.id"
+															                  color="primary"
+																                 v-model="id"
+																                 v-if="!item.status"
+															                ></v-checkbox>
+															        </v-list-item-action>
+
+																		
+												  				
+													              <v-list-item-content>
+													                <v-list-item-title v-bind:class="{ lol: item.status}">@{{item.text}}</v-list-item-title>
+													                <v-list-item-subtitle></v-list-item-subtitle>
+													              </v-list-item-content>
+													          	
+													        	
+
+												            </template>								        
+													</v-list-item>
+												</v-list-item-group>
+											</v-list>
+									</v-col>
+									<v-col md="5">
+										
+										 <v-textarea
+										 	v-model="thought"
+										 	auto-grow
+								            solo
+								            name="input-7-4"
+								            label="Мысли дня"
+								          ></v-textarea>
+								          <v-btn @click="addThought" color="teal  darken-3">Сохранить</v-btn>
+									</v-col>
+								</v-row>
 						
-									<v-btn @click="newItem" color="teal darken-4">Добавить</v-btn>
+									
 					
 
 									
 				
 								
-								<!--вывод дел-->
-								<!--update дел, перенос дела по датам, чтобы выходило по датам, по категориям-->
-								<v-list
-								        subheader
-								        two-line
-								        flat
-								>
-									<v-subheader class="font-weight-bold title teal--text text--lighten-3">Твои дела на @{{today_ru}}</v-subheader>
-
-									<v-list-item-group>
-											
-										
-										<v-list-item color="teal darken-4" v-for="item in groceryList" v-if="item.date == new Date().toISOString().substr(0,10)">
-										
-											
-									            <template v-slot:default="{ active, toggle }" class="teal darken-4">
-													
-
-												        <v-list-item-action>
-												                <v-checkbox
-												                 
-												                  :value="item.id"
-												                  color="primary"
-													                 v-model="id"
-													                 v-if="!item.status"
-												                ></v-checkbox>
-												        </v-list-item-action>
-
-															
-									  				
-										              <v-list-item-content>
-										                <v-list-item-title v-bind:class="{ lol: item.status}">@{{item.text}}</v-list-item-title>
-										                <v-list-item-subtitle></v-list-item-subtitle>
-										              </v-list-item-content>
-										          	
-										        	
-
-									            </template>
-								        	
-								        
-										</v-list-item>
-									
-									</v-list-item-group>
-									
-									
-									
-
-								</v-list>
+								
 
 								<!--list todos-->
 								<!--<div v-for="item in groceryList">
@@ -290,11 +299,20 @@
 				day:0,
 				id:0,
 				today_isos:new Date().toISOString().substr(0,10),
+				thought:"",
 			}									
 		},
-		methods:{
-			
-			
+		methods:{			
+			addThought:function(){
+				let options = {
+					user_id:{!! Auth::user()->id  !!},
+					text:this.thought,
+					date:this.today_isos
+				}
+				axios.post('/addThought',{body:options}).then(({arg})=>{
+					console.log(arg)
+				});
+			},
 			deleteItem:function(arg){
 				axios.post('/deleteItem', {body:arg}).then(({data})=>{
 					this.groceryList = data;		
@@ -362,6 +380,22 @@
 				var dateA = new Date(a.date), dateB = new Date(b.date);
 				return dateA-dateB;
 			})
+		
+
+		},
+		mounted(){
+			
+			//получение мысли дня
+			let options = {
+				user_id:{!! Auth::user()->id  !!},
+				date:this.today_isos
+
+			}
+			axios.post('/getThought',{body:options}).then(({data})=>{
+				for(let i=0;i<data.length;i++){
+					this.thought = this.thought + " " +data[i].text;
+				}
+			});
 		},
 		watch:{
 			id:function(arg){
