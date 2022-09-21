@@ -29,7 +29,7 @@
         "vue": "^2.6.11",
         "vue-router": "^3.1.6",
         "vue-single-date-picker": "^0.4.6",
-        "vuetify": "^2.2.22",
+        "vuetify": "^2.6.10",
         "vuex": "^3.4.0"
     }
 }
